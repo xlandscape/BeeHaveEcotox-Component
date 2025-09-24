@@ -1,0 +1,3 @@
+ID	oldPatchID	patchType		distance_m	xcor	ycor	size_sqm	quantityPollen_g	concentration	quantityNectar_l	calc_DetectProb	model_DetectProb	NectarGathering_s	PollenGathering_s	startDay	stopDay		ETOX_ApplicationList_patch		ETOX_ExposurePeriodsList_patch 	ETOX_PPPConcNectar_patch	ETOX_PPPConcPollen_patch	ETOX_PPPContact_patch	ETOX_WaterVolume_patch	ETOX_WaterConc_patch		ETOX_RUD_patch				
+0	0			"RedPatch"		500			500		0		500000		1000				1.5				20					0.2				-999				1200				600					1			365			[50 100]							[10]							990							26631						0.3						10000					0							21
+1	1			"GreenPatch"	500			0		500		500000		1000				2.5				20					0.2				-999				1200				600					1			365			[]								[]								990							26631						0.3						10000					0							21

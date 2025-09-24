@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE experiments SYSTEM "behaviorspace.dtd">
+<experiments>
+  <experiment name="experiment" repetitions="1" runMetricsEveryStep="true">
+    <setup>Setup</setup>
+    <go>StartProc</go>
+    <timeLimit steps="$(NumberTimeSteps)"/>
+    <metric>TotalIHbees + TotalForagers + TotalDroneEggs + TotalEggs + TotalDroneLarvae + TotalLarvae + TotalDronePupae + TotalPupae</metric>
+    <metric>TotalIHbees + TotalForagers</metric>
+    <metric>TotalDroneEggs + TotalEggs</metric>
+    <metric>TotalDroneLarvae + TotalLarvae</metric>
+    <metric>TotalDronePupae + TotalPupae</metric>
+    <metric>HoneyEnergyStore</metric>
+    <metric>PollenStore_g</metric>
+    <enumeratedValueSet variable="ForagingMap">
+      <value value="&quot;Nectar and Pollen&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="DotDensity">
+      <value value="0.01"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="RAND_SEED">
+      <value value="$(RandomSeed)"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="N_INITIAL_BEES">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="CRITICAL_COLONY_SIZE_WINTER">
+      <value value="4000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="QUANTITY_R_l">
+      <value value="2.98"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="QUANTITY_G_l">
+      <value value="0.298"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="CONC_R">
+      <value value="1.23"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="CONC_G">
+      <value value="1.23"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="POLLEN_R_kg">
+      <value value="0.15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="POLLEN_G_kg">
+      <value value="0.015"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="DISTANCE_R">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="DISTANCE_G">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="DETECT_PROB_R">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="DETECT_PROB_G">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_StartDay">
+      <value value="212"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_X-Days">
+      <value value="365"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="N_INITIAL_MITES_HEALTHY">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="N_INITIAL_MITES_INFECTED">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="MiteReinfestation">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Virus">
+      <value value="&quot;DWV&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="MiteReproductionModel">
+      <value value="&quot;Martin&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="AllowReinfestation">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="VarroaTreatment">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="TreatmentDay">
+      <value value="270"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="TreatmentDuration">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="EfficiencyPhoretic">
+      <value value="0.115"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="TreatmentDay2">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="TreatmentDuration2">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="EfficiencyPhoretic2">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="KillOpenBrood">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="KillAllMitesInCells">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="KillOpenBrood2">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="KillAllMitesInCells2">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="DroneBroodRemoval">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ContinuousBroodRemoval">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="RemovalDay1">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="RemovalDay2">
+      <value value="140"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="RemovalDay3">
+      <value value="180"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="RemovalDay4">
+      <value value="220"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="RemovalDay5">
+      <value value="240"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="HarvestingDay">
+      <value value="135"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="HarvestingPeriod">
+      <value value="80"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="HarvestingTH">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="RemainingHoney_kg">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="HoneyHarvesting">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="MergeWeakColonies">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="FeedBees">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="AddPollen">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="AddedPollen_kg">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="MAX_BROODCELLS">
+      <value value="64000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="MAX_HONEY_STORE_kg">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="HoneyIdeal">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="PollenIdeal">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Swarming">
+      <value value="&quot;No swarming&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="MergeColoniesTH">
+      <value value="5000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ReadInfile">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="INPUT_FILE">
+      <value value="&quot;Sources.txt&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ReadBeeMappFile">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="BeeMapp_FILE">
+      <value value="&quot;Assessments.txt&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Weather">
+      <value value="&quot;Rothamsted (2009)&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="WeatherFile">
+      <value value="&quot;WeatherSite01.txt&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="GenericPlot4">
+      <value value="&quot;mites&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="GenericPlot2">
+      <value value="&quot;colony structure workers&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="GenericPlot5">
+      <value value="&quot;nectar availability [l]&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="GenericPlot1">
+      <value value="&quot;honey &amp; pollen stores [kg]&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="GenericPlot3">
+      <value value="&quot;broodcare [%]&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="GenericPlot6">
+      <value value="&quot;pollen availability [kg]&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="GenericPlot7">
+      <value value="&quot;mean trip duration&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="GenericPlot8">
+      <value value="&quot;foragers today [%]&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="SeasonalFoodFlow">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ConstantHandlingTime">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="TIME_NECTAR_GATHERING">
+      <value value="1200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="TIME_POLLEN_GATHERING">
+      <value value="600"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="SHIFT_R">
+      <value value="-30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="SHIFT_G">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="AlwaysDance">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="DANCE_SLOPE">
+      <value value="1.16"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="DANCE_INTERCEPT">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="EggLaying_IH">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="QueenAgeing">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="MAX_km_PER_DAY">
+      <value value="5099"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ProbLazinessWinterbees">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Experiment">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="SQUADRON_SIZE">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="details">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="writeFile">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="modelledInsteadCalcDetectProb">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ShowAllPlots">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="stopDead">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="HiveType">
+      <value value="&quot;Dadant&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="FrameType">
+      <value value="&quot;Standard brood/deep frame&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_input_initial_conditions">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_Age-of-Queen">
+      <value value="300"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_Max-Age-of-queen">
+      <value value="600"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_honey">
+      <value value="8.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_pollen">
+      <value value="0.138"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_Ihbees">
+      <value value="2188"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_pupae">
+      <value value="7600"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_pupae_drone">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_larvae">
+      <value value="600"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_larvae_drone">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_eggs">
+      <value value="1200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_init_eggs_drone">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Adult_mortality_mode">
+      <value value="&quot;BEEHAVE + Stress (Simone-Finstrom 2016)&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_Relocation-Day1">
+      <value value="212"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_Relocation-Day2">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_StressDuration">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-schedule">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day1">
+      <value value="170"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant1">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day2">
+      <value value="175"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant2">
+      <value value="15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day3">
+      <value value="180"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant3">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day4">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant4">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day5">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant5">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day6">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant6">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day7">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant7">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day8">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant8">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_feeding-day9">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_added-fondant9">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_Honey-harvest">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_harvest-day1">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_remaining-honey1">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_harvest-day2">
+      <value value="21"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_remaining-honey2">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_harvest-day3">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_remaining-honey3">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_harvest-day4">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_remaining-honey4">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp_HoneyNotNegative">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp-fractionSwarm">
+      <value value="0.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exp-broodSwarmingTH">
+      <value value="17000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_AppDay">
+      <value value="217"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_ExposurePeriod">
+      <value value="9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_SpinupPhase">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_ExposurePhase">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_PPPConcNectar_Red">
+      <value value="1320"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_PPPConcPollen_Red">
+      <value value="36200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_PPPConcNectar_Green">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_PPPConcPollen_Green">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Fixed_PPPnectar:pollen">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_N-P-factor">
+      <value value="26.9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_DT50">
+      <value value="1000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_PPPContact_Red">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_WaterVolume_Red">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_WaterConc_Red">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_PPPContact_Green">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_WaterVolume_Green">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_WaterConc_Green">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Water_foraging">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Forager_Oral_LD50">
+      <value value="0.127"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Forager_Oral_Slope">
+      <value value="4.37"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Forager_contact_LD50">
+      <value value="0.169"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Forager_contact_Slope">
+      <value value="16.6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Larvae_Oral_LD50">
+      <value value="0.24"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Larvae_Oral_Slope">
+      <value value="1.186"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_Forager_ImmediateMortality">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_RUD">
+      <value value="21"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_FF_Nursebees_Nectar">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_FF_Nursebees_Pollen">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_degradation_honey">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_DT50_honey">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ETOX_contactexp_oneday">
+      <value value="true"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>

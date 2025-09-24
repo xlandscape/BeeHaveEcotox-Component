@@ -1,0 +1,6 @@
+substanceName  	etox_DT50_Substance  	etox_Forager_Oral_LD50_Substance  	etox_Forager_Oral_slope_Substance  	etox_Forager_contact_LD50_Substance  	etox_Forager_contact_slope_Substance	etox_Larvae_Oral_LD50_Substance  	etox_Larvae_Oral_slope_Substance	etox_Forager_ImmediateMortality_Substance	etox_degradation_honey_Substance	etox_DT50_honey_Substance	etox_FF_Nursebees_Nectar_Substance	etox_FF_Nursebees_Pollen_Substance
+"No applications"	0			0					0					0					0					0					0					FALSE						FALSE					0				0					0	
+"Substance1"		100			1000					100					0.6					1.08					0.0014					1.6					FALSE						FALSE					60				0.25					1
+"Substance2"		200			500					50					1					2					0.002					4					FALSE						FALSE					60				0.25					1								
+"GUIcopy"		1000			1000					100					0.6					1.08					0.0014					1.6					FALSE						FALSE					60				0.25					1						
+		
