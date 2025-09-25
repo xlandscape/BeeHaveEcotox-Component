@@ -204,6 +204,7 @@ class BeeHaveEcotox(base.Component):
         consolidated_output_file = os.path.join(processing_path, "consolidated.shp")
         patches = [shapely.wkb.loads(x).buffer(0) for x in nectar.geometries[0].get_values()]
         output_file = os.path.join(processing_path, "Sources.txt")
+        output_applications = os.path.join(processing_path, "applications.txt")
         i = 1
         for radius_id in range(0, len(radii)):
             for segment in range(segments[radius_id]):
@@ -226,6 +227,7 @@ class BeeHaveEcotox(base.Component):
         segment_sf = shapefile.Reader(segments_output_file)
         segment_polygons = [shapely.geometry.Polygon(x.points) for x in segment_sf.shapes()]
         w = shapefile.Writer(consolidated_output_file, shapefile.POINT)
+        w.field("ID", "N", 10)
         w.field("VEG_TYPE")
         w.field("AREA", "N", 10, 2)
         w.field("APPLIED", "N", 1)
@@ -233,8 +235,11 @@ class BeeHaveEcotox(base.Component):
             for day in range(pollen.values.shape[1]):
                 w.field(f"{attribute}_{day}", "N", 10, 4)
         patch_types = {}
+        patch_station_mapping = {}
+        station_id = 0
         for segment in segment_polygons:
             type_dictionary = {}
+            intersection_dictionary = {}
             for patch in range(len(patches)):
                 if (
                         numpy.count_nonzero(nectar.values[patch]) + numpy.count_nonzero(pollen.values[patch]) > 0 and
@@ -262,11 +267,13 @@ class BeeHaveEcotox(base.Component):
                                 type_dictionary[patch_type] = type_dictionary[patch_type].union(intersection)
                             else:
                                 type_dictionary[patch_type] = patches[patch].intersection(intersection)
+                            intersection_dictionary.setdefault(patch_type, []).append((patch, intersection.area))
             for key in type_dictionary:
                 centroid = type_dictionary[key].centroid
                 w.point(centroid.x, centroid.y)
                 area = type_dictionary[key].area
                 values = {
+                    "ID": station_id,
                     "VEG_TYPE": patch_types[key]["label"],
                     "AREA": area,
                     "APPLIED": patch_types[key]["applied"] * 1
@@ -275,11 +282,22 @@ class BeeHaveEcotox(base.Component):
                     for day in range(pollen.values.shape[1]):
                         values[f"{attribute}_{day}"] = patch_types[key][attribute.lower()][day] * area
                 w.record(**values)
+                for patch_intersection in intersection_dictionary[key]:
+                    mapping = patch_station_mapping.setdefault(
+                        patch_intersection[0],
+                        (station_id, patch_intersection[1])
+                    )
+                    if patch_intersection[1] > mapping[1]:
+                        patch_station_mapping[patch_intersection[0]] = (station_id, patch_intersection[1])
+                station_id += 1
         w.close()
         sf = shapefile.Reader(consolidated_output_file)
         points = sf.shapeRecords()
-        station_id = 0
-        with open(output_file, "w") as f:
+        station_patch_mapping = {}
+        patch_names = nectar.element_names[0].get_values()
+        for k, v in patch_station_mapping.items():
+            station_patch_mapping.setdefault(v[0], []).append(patch_names[k])
+        with (open(output_file, "w") as f, open(output_applications, "w") as f2):
             f.write(
                 "ID\toldPatchID\tpatchType\tdistance_m\txcor\tycor\tsize_sqm\tquantityPollen_g\tConcentration\t"
                 "quantityNectar_l\tcalcDetectProb\tmodelDetectProb\tNectarGathering_s\tPollenGathering_s"
@@ -287,6 +305,7 @@ class BeeHaveEcotox(base.Component):
                 "ETOX_PPPConcNectar_patch\tETOX_PPPConcPollen_patch\tETOX_PPPContact_patch\tETOX_WaterVolume_patch\t"
                 "ETOX_WaterConc_patch\tETOX_RUD_patch\n"
             )
+            f2.write("lulc_feature_id,application_day,conc_nectar,conc_pollen,contact\n")
             for i, point in enumerate(points):
                 distance = math.sqrt(
                     math.pow(
@@ -296,19 +315,19 @@ class BeeHaveEcotox(base.Component):
                     last_index_nectar = 0
                     first_index_pollen = 0
                     last_index_pollen = 0
-                    for index in range(3, 368):
+                    for index in range(4, 369):
                         if point.record[index] > 0:
                             first_index_nectar = index
                             break
-                    for index in range(367, 2, -1):
+                    for index in range(368, 3, -1):
                         if point.record[index] > 0:
                             last_index_nectar = index
                             break
-                    for index in range(368, 733):
+                    for index in range(369, 734):
                         if point.record[index] > 0:
                             first_index_pollen = index
                             break
-                    for index in range(732, 367, -1):
+                    for index in range(733, 368, -1):
                         if point.record[index] > 0:
                             last_index_pollen = index
                             break
@@ -325,7 +344,7 @@ class BeeHaveEcotox(base.Component):
                         nectar = statistics.mean(point.record[first_day_flowering + 1:last_day_flowering + 1])
                         pollen = statistics.mean(point.record[first_day_flowering + 366:last_day_flowering + 366])
                         f.write(
-                            f"{station_id}\t{station_id}\t{int(float(point.record['VEG_TYPE']))}\t"
+                            f"{point.record['ID']}\t{point.record['ID']}\t{int(float(point.record['VEG_TYPE']))}\t"
                             f"{format(distance, 'f')}\t{format(center.x - point.shape.points[0][0], 'f')}\t"
                             f"{format(center.y - point.shape.points[0][1], 'f')}\t{format(point.record['AREA'], 'f')}\t"
                             f"{format(pollen, 'f')}\t1.5\t{format(nectar, 'f')}\t"
@@ -335,16 +354,18 @@ class BeeHaveEcotox(base.Component):
                         if number_applications > 0:
                             applications = [random.randint(100, 250) for _ in range(number_applications)]  # todo
                             applications.sort()
+                            conc_nectar = random.normalvariate(1320, 132)  # todo
+                            conc_pollen = random.normalvariate(36200, 3620)  # todo
+                            contact = random.normalvariate(0.4, 0.04)  # todo
                             f.write(
                                 f"{first_day_flowering}\t{last_day_flowering}\t"
                                 f"[{' '.join([str(x) for x in applications])}]\t"  # todo
                                 "[9]\t"  # todo
-                                f"{random.normalvariate(1320, 132)}\t"  # todo
-                                f"{random.normalvariate(36200, 3620)}\t"  # todo
-                                f"{random.normalvariate(0.4, 0.04)}\t"  # todo
+                                f"{conc_nectar}\t{conc_pollen}\t{contact}\t"
                                 f"10000\t0\t21\n"  # todo
                             )
+                            for feature in station_patch_mapping.get(point.record["ID"], []):
+                                for application in applications:
+                                    f2.write(f"{feature},{application},{conc_nectar},{conc_pollen},{contact}\n")
                         else:
                             f.write(f"{first_day_flowering}\t{last_day_flowering}\t[]\t[]\t0\t0\t0\t10000\t0\t0\n")
-                        station_id += 1
-
