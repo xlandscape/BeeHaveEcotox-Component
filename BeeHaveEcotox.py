@@ -247,7 +247,7 @@ class BeeHaveEcotox(base.Component):
                         numpy.count_nonzero(numpy.isnan(pollen.values[patch])) == 0
                 ):
                     if segment.intersects(patches[patch]):
-                        patch_applied = vegetation[patch] <= 1702  # todo
+                        patch_applied = vegetation[patch] == 2102  # todo
                         patch_type = hash(
                             numpy.append(
                                 nectar.values[patch],
@@ -350,7 +350,7 @@ class BeeHaveEcotox(base.Component):
                             f"{format(pollen, 'f')}\t1.5\t{format(nectar, 'f')}\t"
                             f"{format(1 / distance * math.sqrt(point.record['AREA']) / 100, 'f')}\t-999\t1200\t600\t"
                         )
-                        number_applications = random.randint(0, 5) * point.record["APPLIED"]  # todo
+                        number_applications = random.randint(0, 1) * point.record["APPLIED"]  # todo
                         if number_applications > 0:
                             applications = [random.randint(100, 250) for _ in range(number_applications)]  # todo
                             applications.sort()
