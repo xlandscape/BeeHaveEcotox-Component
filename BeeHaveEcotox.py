@@ -162,6 +162,11 @@ class BeeHaveEcotox(base.Component):
                     "ExposurePeriod",
                     (attrib.Class(int), attrib.Unit("d"), attrib.Scales("global")),
                     self.default_observer
+                ),
+                base.Input(
+                    "RandomSeed",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
                 )
             )
         )
@@ -184,7 +189,7 @@ class BeeHaveEcotox(base.Component):
         base.replace_tokens(
             {
                 "NumberTimeSteps": str(self.inputs["NumberTimeSteps"].read().values),
-                "RandomSeed": 1
+                "RandomSeed": self.inputs["RandomSeed"].read().values
             },
             os.path.abspath(os.path.join(__file__, "..", "template", "experiment.xml")),
             os.path.join(processing_path, "experiment.xml")
