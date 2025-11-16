@@ -189,7 +189,7 @@ class BeeHaveEcotox(base.Component):
         base.replace_tokens(
             {
                 "NumberTimeSteps": str(self.inputs["NumberTimeSteps"].read().values),
-                "RandomSeed": self.inputs["RandomSeed"].read().values
+                "RandomSeed": str(self.inputs["RandomSeed"].read().values)
             },
             os.path.abspath(os.path.join(__file__, "..", "template", "experiment.xml")),
             os.path.join(processing_path, "experiment.xml")
