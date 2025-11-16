@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE experiments SYSTEM "behaviorspace.dtd">
 <experiments>
-  <experiment name="experiment" repetitions="1" runMetricsEveryStep="true">
+  <experiment name="experiment">
     <setup>Setup</setup>
     <go>StartProc</go>
     <timeLimit steps="$(NumberTimeSteps)"/>
-    <metric>TotalIHbees + TotalForagers + TotalDroneEggs + TotalEggs + TotalDroneLarvae + TotalLarvae + TotalDronePupae + TotalPupae</metric>
+    <metric>
+      TotalIHbees + TotalForagers + TotalDroneEggs + TotalEggs + TotalDroneLarvae + TotalLarvae + TotalDronePupae +
+      TotalPupae
+    </metric>
     <metric>TotalIHbees + TotalForagers</metric>
     <metric>TotalDroneEggs + TotalEggs</metric>
     <metric>TotalDroneLarvae + TotalLarvae</metric>
@@ -433,7 +436,7 @@
       <value value="217"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_ExposurePeriod">
-      <value value="9"/>
+      <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_SpinupPhase">
       <value value="0"/>

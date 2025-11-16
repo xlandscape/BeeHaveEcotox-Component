@@ -15,13 +15,7 @@ import shapely.wkb
 
 class BeeHaveEcotox(base.Component):
     """
-    Prepares a BeeHave scenario.
-
-    INPUTS
-    ProcessingPath: The working directory for the component.
-
-    OUTPUTS
-    None.
+    Prepares and runs a BeeHave scenario.
     """
 
     # VERSION
@@ -101,11 +95,72 @@ class BeeHaveEcotox(base.Component):
                 ),
                 base.Input(
                     "Vegetation",
-                    (
-                        attrib.Class(numpy.ndarray),
-                        attrib.Unit(None),
-                        attrib.Scales("space/base_geometry")
-                    ),
+                    (attrib.Class(numpy.ndarray), attrib.Unit(None), attrib.Scales("space/base_geometry")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "Vegetation",
+                    (attrib.Class(numpy.ndarray), attrib.Unit(None), attrib.Scales("space/base_geometry")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "AppliedVegetationId",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "MinNumberApplications",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "MaxNumberApplications",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "FirstDayOfYearApplications",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "LastDayOfYearApplications",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "ConcNectarMean",
+                    (attrib.Class(float), attrib.Unit("µg/kg"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "ConcNectarStd",
+                    (attrib.Class(float), attrib.Unit("µg/kg"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "ConcPollenMean",
+                    (attrib.Class(float), attrib.Unit("µg/kg"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "ConcPollenStd",
+                    (attrib.Class(float), attrib.Unit("µg/kg"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "ContactToxicityMean",
+                    (attrib.Class(float), attrib.Unit("µg/bee"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "ContactToxicityStd",
+                    (attrib.Class(float), attrib.Unit("µg/bee"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "ExposurePeriod",
+                    (attrib.Class(int), attrib.Unit("d"), attrib.Scales("global")),
                     self.default_observer
                 )
             )
@@ -185,6 +240,18 @@ class BeeHaveEcotox(base.Component):
 
         vegetation = self.inputs["Vegetation"].read().values
         steps = self.inputs["SegmentationGridSteps"].read().values
+        applied_vegetation_id = self.inputs["AppliedVegetationId"].read().values
+        min_number_applications = self.inputs["MinNumberApplications"].read().values
+        max_number_applications = self.inputs["MaxNumberApplications"].read().values
+        first_day_of_year_applications = self.inputs["FirstDayOfYearApplications"].read().values
+        last_day_of_year_applications = self.inputs["LastDayOfYearApplications"].read().values
+        conc_nectar_mean = self.inputs["ConcNectarMean"].read().values
+        conc_nectar_std = self.inputs["ConcNectarStd"].read().values
+        conc_pollen_mean = self.inputs["ConcPollenMean"].read().values
+        conc_pollen_std = self.inputs["ConcPollenStd"].read().values
+        contact_toxicity_mean = self.inputs["ContactToxicityMean"].read().values
+        contact_toxicity_std = self.inputs["ContactToxicityStd"].read().values
+        exposure_period = self.inputs["ExposurePeriod"].read().values
         step_angle_width = 360 / steps
         segments_output_file = os.path.join(processing_path, "segments.shp")
         w = shapefile.Writer(segments_output_file, shapefile.POLYGON)
@@ -247,7 +314,7 @@ class BeeHaveEcotox(base.Component):
                         numpy.count_nonzero(numpy.isnan(pollen.values[patch])) == 0
                 ):
                     if segment.intersects(patches[patch]):
-                        patch_applied = vegetation[patch] == 2102  # todo
+                        patch_applied = vegetation[patch] == applied_vegetation_id
                         patch_type = hash(
                             numpy.append(
                                 nectar.values[patch],
@@ -300,11 +367,12 @@ class BeeHaveEcotox(base.Component):
         with (open(output_file, "w") as f, open(output_applications, "w") as f2):
             f.write(
                 "ID\toldPatchID\tpatchType\tdistance_m\txcor\tycor\tsize_sqm\tquantityPollen_g\tConcentration\t"
-                "quantityNectar_l\tcalcDetectProb\tmodelDetectProb\tNectarGathering_s\tPollenGathering_s"
+                "quantityNectar_l\tcalcDetectProb\tmodelDetectProb\tNectarGathering_s\tPollenGathering_s\t"
                 "startDay\tstopDay\tETOX_ApplicationList_patch\tETOX_ExposurePeriodsList_patch\t"
                 "ETOX_PPPConcNectar_patch\tETOX_PPPConcPollen_patch\tETOX_PPPContact_patch\tETOX_WaterVolume_patch\t"
                 "ETOX_WaterConc_patch\tETOX_RUD_patch\n"
             )
+            # noinspection SpellCheckingInspection
             f2.write("lulc_feature_id,application_day,conc_nectar,conc_pollen,contact\n")
             for i, point in enumerate(points):
                 distance = math.sqrt(
@@ -350,19 +418,25 @@ class BeeHaveEcotox(base.Component):
                             f"{format(pollen, 'f')}\t1.5\t{format(nectar, 'f')}\t"
                             f"{format(1 / distance * math.sqrt(point.record['AREA']) / 100, 'f')}\t-999\t1200\t600\t"
                         )
-                        number_applications = random.randint(0, 1) * point.record["APPLIED"]  # todo
+                        number_applications = random.randint(
+                            min_number_applications,
+                            max_number_applications
+                        ) * point.record["APPLIED"]
                         if number_applications > 0:
-                            applications = [random.randint(100, 250) for _ in range(number_applications)]  # todo
+                            applications = [
+                                random.randint(first_day_of_year_applications, last_day_of_year_applications)
+                                for _ in range(number_applications)
+                            ]
                             applications.sort()
-                            conc_nectar = random.normalvariate(1320, 132)  # todo
-                            conc_pollen = random.normalvariate(36200, 3620)  # todo
-                            contact = random.normalvariate(0.4, 0.04)  # todo
+                            conc_nectar = random.normalvariate(conc_nectar_mean, conc_nectar_std)
+                            conc_pollen = random.normalvariate(conc_pollen_mean, conc_pollen_std)
+                            contact = random.normalvariate(contact_toxicity_mean, contact_toxicity_std)
                             f.write(
                                 f"{first_day_flowering}\t{last_day_flowering}\t"
-                                f"[{' '.join([str(x) for x in applications])}]\t"  # todo
-                                "[9]\t"  # todo
+                                f"[{' '.join([str(x) for x in applications])}]\t"
+                                f"[{exposure_period}]\t"
                                 f"{conc_nectar}\t{conc_pollen}\t{contact}\t"
-                                f"10000\t0\t21\n"  # todo
+                                f"10000\t0\t21\n"
                             )
                             for feature in station_patch_mapping.get(point.record["ID"], []):
                                 for application in applications:
