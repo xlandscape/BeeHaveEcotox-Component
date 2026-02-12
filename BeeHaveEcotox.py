@@ -167,6 +167,11 @@ class BeeHaveEcotox(base.Component):
                     "RandomSeed",
                     (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
                     self.default_observer
+                ),
+                base.Input(
+                    "JavaMemoryAllocation",
+                    (attrib.Class(str), attrib.Unit(None), attrib.Scales("global")),
+                    self.default_observer
                 )
             )
         )
@@ -198,7 +203,7 @@ class BeeHaveEcotox(base.Component):
         base.run_process(
             (
                 os.path.abspath(os.path.join(__file__, "..", "jdk-24", "bin", "java.exe")),
-                "-Xmx1024m",
+                f"-Xmx{self.inputs['JavaMemoryAllocation'].read().values}",
                 "-Dfile.encoding=UTF-8",
                 "-cp",
                 os.path.abspath(os.path.join(__file__, '..', 'NetLogo 5.3.1', 'app', 'NetLogo.jar')),
