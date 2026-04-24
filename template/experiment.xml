@@ -21,9 +21,7 @@
     <enumeratedValueSet variable="DotDensity">
       <value value="0.01"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="RAND_SEED">
-      <value value="$(RandomSeed)"/>
-    </enumeratedValueSet>
+    <steppedValueSet variable="RAND_SEED" first="$(RandomSeed)" step="1" last="$(RandomSeedLast)"/>
     <enumeratedValueSet variable="N_INITIAL_BEES">
       <value value="10000"/>
     </enumeratedValueSet>

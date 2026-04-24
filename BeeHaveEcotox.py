@@ -172,6 +172,11 @@ class BeeHaveEcotox(base.Component):
                     "JavaMemoryAllocation",
                     (attrib.Class(str), attrib.Unit(None), attrib.Scales("global")),
                     self.default_observer
+                ),
+                base.Input(
+                    "NumberReplicates",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
                 )
             )
         )
@@ -191,10 +196,14 @@ class BeeHaveEcotox(base.Component):
                 os.path.join(__file__, "..", "BEEHAVEEcotox", "A7-ModelCode_BEEHAVE-ECOTOX.nlogo")),
             processing_path
         )
+        random_seed = self.inputs["RandomSeed"].read().values
+        number_replicates = self.inputs["NumberReplicates"].read().values
         base.replace_tokens(
             {
                 "NumberTimeSteps": str(self.inputs["NumberTimeSteps"].read().values),
-                "RandomSeed": str(self.inputs["RandomSeed"].read().values)
+                "RandomSeed": str(random_seed),
+                "RandomSeedLast": str(random_seed + number_replicates - 1),
+                "NumberReplicates": str(number_replicates)
             },
             os.path.abspath(os.path.join(__file__, "..", "template", "experiment.xml")),
             os.path.join(processing_path, "experiment.xml")
@@ -248,6 +257,7 @@ class BeeHaveEcotox(base.Component):
                 origin_point.y + math.cos(math.radians(angle)) * d
             )
 
+        random.seed(self.inputs["RandomSeed"].read().values)
         vegetation = self.inputs["Vegetation"].read().values
         steps = self.inputs["SegmentationGridSteps"].read().values
         applied_vegetation_id = self.inputs["AppliedVegetationId"].read().values
