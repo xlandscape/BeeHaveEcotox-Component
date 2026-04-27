@@ -5,14 +5,14 @@
     <setup>Setup</setup>
     <go>StartProc</go>
     <timeLimit steps="$(NumberTimeSteps)"/>
-    <metric>
-      TotalIHbees + TotalForagers + TotalDroneEggs + TotalEggs + TotalDroneLarvae + TotalLarvae + TotalDronePupae +
-      TotalPupae
-    </metric>
-    <metric>TotalIHbees + TotalForagers</metric>
-    <metric>TotalDroneEggs + TotalEggs</metric>
-    <metric>TotalDroneLarvae + TotalLarvae</metric>
-    <metric>TotalDronePupae + TotalPupae</metric>
+    <metric>TotalIHbees</metric>
+    <metric>TotalForagers</metric>
+    <metric>TotalDroneEggs</metric>
+    <metric>TotalEggs</metric>
+    <metric>TotalDroneLarvae</metric>
+    <metric>TotalLarvae</metric>
+    <metric>TotalDronePupae</metric>
+    <metric>TotalPupae</metric>
     <metric>HoneyEnergyStore</metric>
     <metric>PollenStore_g</metric>
     <enumeratedValueSet variable="ForagingMap">
@@ -61,7 +61,7 @@
       <value value="0.2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="exp_StartDay">
-      <value value="212"/>
+      <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="exp_X-Days">
       <value value="365"/>
@@ -331,13 +331,13 @@
       <value value="&quot;BEEHAVE + Stress (Simone-Finstrom 2016)&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="exp_Relocation-Day1">
-      <value value="212"/>
+      <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="exp_Relocation-Day2">
       <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="exp_StressDuration">
-      <value value="14"/>
+      <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="exp_feeding-schedule">
       <value value="false"/>

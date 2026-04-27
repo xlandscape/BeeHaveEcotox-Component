@@ -1815,11 +1815,11 @@ to-report Season_HoPoMoREP [ today parameterList ]
   ; see Schmickl&Crailsheim2007: p.221 and p.230
   ; Values HoPoMo: x1 385; x2 30; x3 36; x4 155; x5 30
 
-  let x1 385  ;385
-  let x2 25 ; (earlier increase in egg-laying rate than in HoPoMo)
-  let x3 36    ; 36
-  let x4 155   ;155  ; Day of max. egg laying
-  let x5 30    ;30
+  let x1 $(SeasonHoPoMoRepX1)  ;385
+  let x2 $(SeasonHoPoMoRepX2) ; (earlier increase in egg-laying rate than in HoPoMo)
+  let x3 $(SeasonHoPoMoRepX3)    ; 36
+  let x4 $(SeasonHoPoMoRepX4)   ;155  ; Day of max. egg laying
+  let x5 $(SeasonHoPoMoRepX5)    ;30
   if empty? parameterList = false
   [
     set x1 item 0 parameterList
@@ -4020,24 +4020,7 @@ to-report Foraging_PeriodREP
 
   ; ROTHAMSTED WEATHER DATA 2009:
   ;TH: 15C:
-  let foragingHoursListRothamsted2009 [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-    0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-    0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-    0  0  10.4  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  7.8  0  0  8.9  0  5.4  0
-    0  0  0  0  0  4.1  6  5.9  0  0  0  0  10.1  12.3  11  9.3  10.5  0  11.5  0  0
-    11.2  4.5  8  10.3  0  0  5.2  7.5  3.2  0  9.4  10.3  0  11.6  0  0.7  0  0  0  6.9
-    5.4  8.2  8.7  8.4  12.5  15  7.5  7.5  0.7  6.7  13  15  14.2  14.3  14.9  3.4  11.7
-    0  0  4.3  2.5  0  0.9  6.5  11.8  5.4  13  5.4  9.4  4.7  6  9.7  2.7  9  5  10.6
-    13.9  8  2.7  4.7  4.3  10.8  11.7  12.7  12.3  6.2  11.8  9  6.8  4.7  3.7  5.2  9.7
-    2.2  7.4  7.4  8.7  6.1  3.6  1.9  5.3  3.8  7.8  0.2  7.1  6.1  6.5  11.4  1.8  5.1
-    6.8  1.6  8.7  8.6  0.9  8.5  5.4  0  5.9  3.2  2.7  9.5  4.8  2.7  8.5  1.8  6.2  3.2
-    2.6  10.4  7.5  7.5  12.3  5.4  8.4  8.1  11.4  7.3  5.8  2.3  7.4  7.4  8.7  3.8  5.7
-    7.3  0.4  5.2  7.5  6.1  4.3  0.5  6.7  5.7  7  4.8  9.8  0.8  3.6  0  4.6  1.6  7.7
-    3.4  4.4  4.9  3.3  1.8  9.7  9.9  8  9.3  0.9  5.2  0.3  5.6  5.5  0.8  4.9  0.1  0.1
-    0  0  0  4  3.5  0  0  0  0  0  0  0  0  0  0  0  6.2  0.5  4.2  0  1.3  0.6  1.8  0
-    2.5  0.5  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0.8  0  0  0  0  0
-    0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-    0  0  0  0  0  0 ]
+  let foragingHoursListRothamsted2009 [ $(SunshineHours) ]
 
   ; ROTHAMSTED WEATHER DATA 2010:
   ; TH: 15C:
