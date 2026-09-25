@@ -194,10 +194,10 @@
       <value value="&quot;Assessments.txt&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Weather">
-      <value value="&quot;Rothamsted (2009)&quot;"/>
+      <value value="&quot;$(Weather)&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="WeatherFile">
-      <value value="&quot;WeatherSite01.txt&quot;"/>
+      <value value="&quot;$(WeatherFile)&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="GenericPlot4">
       <value value="&quot;mites&quot;"/>
@@ -461,7 +461,7 @@
       <value value="26.9"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_DT50">
-      <value value="1000"/>
+      <value value="$(PlantDT50)"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_PPPContact_Red">
       <value value="0.4"/>
@@ -485,28 +485,28 @@
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_Forager_Oral_LD50">
-      <value value="0.127"/>
+      <value value="$(ForagerOralLD50)"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_Forager_Oral_Slope">
-      <value value="4.37"/>
+      <value value="$(ForagerOralSlope)"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_Forager_contact_LD50">
-      <value value="0.169"/>
+      <value value="$(ForagerContactLD50)"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_Forager_contact_Slope">
-      <value value="16.6"/>
+      <value value="$(ForagerContactSlope)"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_Larvae_Oral_LD50">
-      <value value="0.24"/>
+      <value value="$(LarvaeOralLD50)"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_Larvae_Oral_Slope">
-      <value value="1.186"/>
+      <value value="$(LarvaeOralSlope)"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_Forager_ImmediateMortality">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_RUD">
-      <value value="21"/>
+      <value value="$(ResidueUnitDose)"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ETOX_FF_Nursebees_Nectar">
       <value value="1"/>
