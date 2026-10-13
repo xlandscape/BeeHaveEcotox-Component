@@ -245,6 +245,36 @@ class BeeHaveEcotox(base.Component):
                     "NumberReplicates",
                     (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
                     self.default_observer
+                ),
+                base.Input(
+                    "SunshineHours",
+                    (attrib.Class(list[float]), attrib.Unit(None), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "SeasonHoPoMoRepX1",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "SeasonHoPoMoRepX2",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "SeasonHoPoMoRepX3",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "SeasonHoPoMoRepX4",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
+                ),
+                base.Input(
+                    "SeasonHoPoMoRepX5",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer
                 )
             )
         )
@@ -259,10 +289,17 @@ class BeeHaveEcotox(base.Component):
         processing_path = self.inputs["ProcessingPath"].read().values
         output_file = os.path.join(processing_path, "output.csv")
         os.makedirs(processing_path)
-        shutil.copy(
-            os.path.abspath(
-                os.path.join(__file__, "..", "BEEHAVEEcotox", "A7-ModelCode_BEEHAVE-ECOTOX.nlogo")),
-            processing_path
+        base.replace_tokens(
+            {
+                "SunshineHours": " ".join([str(x) for x in self.inputs["SunshineHours"].read().values]),
+                "SeasonHoPoMoRepX1": self.inputs["SeasonHoPoMoRepX1"].read().values,
+                "SeasonHoPoMoRepX2": self.inputs["SeasonHoPoMoRepX2"].read().values,
+                "SeasonHoPoMoRepX3": self.inputs["SeasonHoPoMoRepX3"].read().values,
+                "SeasonHoPoMoRepX4": self.inputs["SeasonHoPoMoRepX4"].read().values,
+                "SeasonHoPoMoRepX5": self.inputs["SeasonHoPoMoRepX5"].read().values
+            },
+            os.path.abspath(os.path.join(__file__, "..", "BEEHAVEEcotox", "A7-ModelCode_BEEHAVE-ECOTOX.nlogo")),
+            os.path.join(processing_path, "A7-ModelCode_BEEHAVE-ECOTOX.nlogo")
         )
         random_seed = self.inputs["RandomSeed"].read().values
         number_replicates = self.inputs["NumberReplicates"].read().values
