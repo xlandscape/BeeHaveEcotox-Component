@@ -244,7 +244,17 @@ class BeeHaveEcotox(base.Component):
                 base.Input(
                     "NumberReplicates",
                     (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
-                    self.default_observer
+                    self.default_observer,
+                    description="Number of BEEHAVE replicates run in one BehaviorSpace experiment. Replicate k uses "
+                                "RAND_SEED = RandomSeed + MonteCarloIndex * NumberReplicates + k."
+                ),
+                base.Input(
+                    "MonteCarloIndex",
+                    (attrib.Class(int), attrib.Unit("1"), attrib.Scales("global")),
+                    self.default_observer,
+                    description="Index of the outer Monte Carlo run (0-based, $(_MC_ID_) of the framework). Shifts the "
+                                "seed block of this run so that application draws and BEEHAVE replicates never repeat "
+                                "across Monte Carlo runs."
                 ),
                 base.Input(
                     "SunshineHours",
@@ -301,8 +311,13 @@ class BeeHaveEcotox(base.Component):
             os.path.abspath(os.path.join(__file__, "..", "BEEHAVEEcotox", "A7-ModelCode_BEEHAVE-ECOTOX.nlogo")),
             os.path.join(processing_path, "A7-ModelCode_BEEHAVE-ECOTOX.nlogo")
         )
-        random_seed = self.inputs["RandomSeed"].read().values
         number_replicates = self.inputs["NumberReplicates"].read().values
+        # Non-overlapping seed block per outer Monte Carlo run: MC m, replicate k -> base + m * n + k.
+        random_seed = (
+            self.inputs["RandomSeed"].read().values
+            + self.inputs["MonteCarloIndex"].read().values * number_replicates
+        )
+        self._random_seed = random_seed
         weather_mode = self.inputs["BeeHaveWeather"].read().values
         weather_file_input = self.inputs["BeeHaveWeatherFile"].read().values
         weather_file_for_experiment = weather_file_input or "WeatherSite01.txt"
@@ -381,7 +396,7 @@ class BeeHaveEcotox(base.Component):
                 origin_point.y + math.cos(math.radians(angle)) * d
             )
 
-        random.seed(self.inputs["RandomSeed"].read().values)
+        random.seed(self._random_seed)
         vegetation = self.inputs["Vegetation"].read().values
         steps = self.inputs["SegmentationGridSteps"].read().values
         applied_vegetation_id = self.inputs["AppliedVegetationId"].read().values
